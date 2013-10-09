@@ -16,7 +16,7 @@ RSpec.configure do |config|
   config.include(Billy::RspecHelper)
 
   config.before(:each) do
-    if Capybara.current_driver == :webkit_billy
+    if Capybara.current_driver == :webkit_billy || Capybara.current_driver == :webkit_debug_billy
       Capybara.page.driver.browser.set_proxy(
         :host => Billy.proxy.host,
         :port => Billy.proxy.port)

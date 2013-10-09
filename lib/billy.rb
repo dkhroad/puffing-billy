@@ -43,6 +43,17 @@ module Billy
       end
     end
 
+    if defined?(Capybara::Webkit::Driver)
+      Capybara.register_driver :webkit_debug_billy do |app|
+        driver = Capybara::Webkit::Driver.new(app)
+        driver.browser.set_proxy(:host => Billy.proxy.host,
+                                 :port => Billy.proxy.port)
+        driver.enable_logging
+        driver.browser.ignore_ssl_errors
+        driver
+      end
+    end
+
     if defined?(Selenium::WebDriver)
       Capybara.register_driver :selenium_billy do |app|
         profile = Selenium::WebDriver::Firefox::Profile.new
